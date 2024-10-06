@@ -1,5 +1,5 @@
 # Dotfiles
-### These are my dotfiles, they include configs for:
+#### These are my dotfiles, they include configs for:
 - Neovim
 - Wezterm
 - oh-my-posh
