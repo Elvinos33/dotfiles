@@ -1,73 +1,47 @@
-#-----------------SSH------------------#
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
-#----------------EDITOR----------------#
+#----------------------- EDITOR -----------------------#
 export EDITOR=nvim
 
-#-----------------PATH-----------------#
-
+#------------------------ PATH ------------------------#
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
-export PATH="/home/elvin/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$PATH:$HOME/.scripts"
+
+#------------------- COMMAND CORRECTIONS --------------#
 eval $(thefuck --alias)
 
-#-----------------TERMINAL SETTINGS-----------------#
-
+#---------------- TERMINAL SETTINGS -------------------#
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
+[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+source "${ZINIT_HOME}/zinit.zsh"
 
 bindkey '^ ' autosuggest-accept
 
-#-----------------PLUGINS-----------------#
-
+#--------------------- PLUGINS ------------------------#
 eval "$(zoxide init zsh)"
 
-#-----------------ALIASES-----------------#
-
+#--------------------- ALIASES ------------------------#
 alias v="nvim"
 alias h="nvim ."
 alias nvconf="cd ~/.config/nvim/ && nvim ."
-
 alias zshconf="nvim ~/.zshrc"
-alias zsrc="source ~/.zshrc"
-
 alias poki="lsof -ti:3000-3010,3421,5173 | xargs kill"
-
 alias ls="eza --icons -F -H --group-directories-first --git -1"
 alias cd="z"
 
-#-----------------GIT-----------------#
-gho() {
-  originUrl=$(git config --get remote.origin.url)
-
-  if [[ -z "$originUrl" ]]; then
-    echo "No GitHub repository found."
-    return 1
-  fi
-
-  if echo "$originUrl" | grep -q "^https://"; then
-    webUrl=$(echo "$originUrl" | sed 's|\.git$||')
-  else
-    webUrl=$(echo "$originUrl" | sed 's|^git@\(.*\):|\1/|;s|\.git$||;s|^|https://|')
-  fi
-
-  xdg-open "$webUrl$1"
-}
-
-#-----------------FZF-----------------#
-
+#---------------------- FZF ---------------------------#
 eval "$(fzf --zsh)"
 
-#-----------------SYNTAX HIGHLIGHTING-----------------#
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh >> ${ZDOTDIR:-$HOME}/.zshrc
+#--------------------- PLUGINS ------------------------#
+zinit load zsh-users/zsh-history-substring-search
+zinit load zsh-users/zsh-syntax-highlighting
+zinit load zsh-users/zsh-autosuggestions
 
-#-----------------AUTOCOMPLETE-----------------#
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+zinit snippet https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/aws/aws.plugin.zsh
 
-#-----------------SUBSTRING COMPLETION-----------------#
-autoload -U up-line-or-beginning-search
-autoload -U down-line-or-beginning-search
-zle -N up-line-or-beginning-search
-zle -N down-line-or-beginning-search
-bindkey "^[[A" up-line-or-beginning-search
-bindkey "^[[B" down-line-or-beginning-search
-
+#-------------------- OH-MY-POSH ----------------------#
 eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/config.toml)"
+
+
