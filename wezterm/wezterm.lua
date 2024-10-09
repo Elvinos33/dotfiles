@@ -8,7 +8,7 @@ config.color_scheme = 'Gruvbox Material (Gogh)'
 config.enable_wayland = false
 
 config.send_composed_key_when_left_alt_is_pressed = true
-config.send_composed_key_when_right_alt_is_pressed = false
+config.send_composed_key_when_right_alt_is_pressed = true
 
 config.font_size = 16.0
 config.font = wezterm.font("FiraCode Nerd Font", { weight = 'Regular' })
