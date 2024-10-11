@@ -58,8 +58,13 @@ HISTSIZE=5000
 HISTFILE=~/.zsh_history
 SAVEHIST=$HISTSIZE
 HISTDUP=erase
-setopt appendhistory sharehistory hist_ignore_space hist_ignore_all_dups \
-        hist_save_no_dups hist_ignore_dups hist_find_no_dups
+setopt appendhistory 
+setopt sharehistory 
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
 
 #-------------------- OH-MY-POSH ----------------------#
 eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/config.toml)"
