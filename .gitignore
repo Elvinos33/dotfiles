@@ -1,5 +1,6 @@
 .config/composer/
 .config/k9s/clusters/
 .config/raycast/
+.config/github-copilot/
 .config/thefuck/
 .config/gh/
