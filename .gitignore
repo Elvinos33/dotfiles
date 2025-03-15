@@ -1,0 +1,5 @@
+.config/composer/
+.config/k9s/clusters/
+.config/raycast/
+.config/thefuck/
+.config/gh/

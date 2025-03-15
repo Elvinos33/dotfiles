@@ -2,11 +2,11 @@
 export EDITOR=nvim
 
 #------------------------ PATH ------------------------#
-export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.scripts:$PATH"
 export PATH="$HOME/.go/bin:$PATH"
+export K9S_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/k9s"
 
 #--------------------- HOMEBREW -----------------------#
 if [[ -f "/opt/homebrew/bin/brew" ]]; then
@@ -29,6 +29,7 @@ zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-completions
 zinit light Aloxaf/fzf-tab
 zinit snippet OMZP::aws
+zinit snippet OMZP::direnv
 
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
@@ -36,6 +37,7 @@ bindkey '^[[B' history-substring-search-down
 #--------------------- FZF and Zoxide -----------------#
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
+eval "$(fnm env --use-on-cd --shell zsh)"
 
 #---------------- TERMINAL BINDINGS -------------------#
 bindkey '^ ' autosuggest-accept
@@ -73,5 +75,13 @@ setopt hist_find_no_dups
 eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/config.toml)"
 
 #------------------------ MISC ------------------------#
-# source "$HOME/.misc.zsh"
+source "$HOME/.misc.zsh"
 
+
+# bun completions
+[ -s "/Users/elvin.baloku@schibsted.com/.bun/_bun" ] && source "/Users/elvin.baloku@schibsted.com/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+. "/Users/elvin.baloku@schibsted.com/.deno/env"
